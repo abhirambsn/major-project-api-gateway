@@ -135,36 +135,44 @@
 
     <script>
         async function checkHealthOfService(service_name) {
-            const URL = `/health/${service_name}`
-            const response = await fetch(URL)
-            const data = await response.json()
+            const URL = `/health/${service_name}`;
 
-            const service_pill = document.getElementById(`${service_name}-pill`)
-            const service_stat = document.getElementById(`${service_name}-stat`)
-            const service_resp_code = document.getElementById(`${service_name}-resp-code`)
+            const service_pill = document.getElementById(`${service_name}-pill`);
+            const service_stat = document.getElementById(`${service_name}-stat`);
+            const service_resp_code = document.getElementById(`${service_name}-resp-code`);
 
-            if (response.status === 200) {
-                service_pill.classList.remove('bg-red-500')
-                service_pill.classList.add('bg-[#69b968]')
-                service_stat.innerText = 'Healthy'
-                service_resp_code.innerText = `Response Code: ${response.status}`
-            } else {
-                service_pill.classList.remove('bg-[#69b968]')
-                service_pill.classList.add('bg-red-500')
-                service_stat.innerText = 'Unhealthy'
-                service_resp_code.innerText = `Response Code: ${response.status}`
+            try {
+                const response = await fetch(URL);
+                const data = await response.json();
+
+                if (response.status === 200) {
+                    service_pill.classList.remove('bg-red-500');
+                    service_pill.classList.add('bg-[#69b968]');
+                    service_stat.innerText = 'Healthy';
+                    service_resp_code.innerText = `Response Code: ${response.status}`;
+                } else {
+                    service_pill.classList.remove('bg-[#69b968]');
+                    service_pill.classList.add('bg-red-500');
+                    service_stat.innerText = 'Unhealthy';
+                    service_resp_code.innerText = `Response Code: ${response.status}`;
+                }
+            } catch (err) {
+                service_pill.classList.remove('bg-[#69b968]');
+                service_pill.classList.add('bg-red-500');
+                service_stat.innerText = 'Unhealthy';
+                service_resp_code.innerText = `Response Code: ${response.status}`;
             }
 
-            console.log(`Health Check of ${service_name} is Complete.`)
+            console.log(`Health Check of ${service_name} is Complete.`);
         }
 
         async function performHealthCheck() {
-            console.log("Starting Health Check of all Services ...")
-            await checkHealthOfService('auth')
-            await checkHealthOfService('chat')
-            await checkHealthOfService('notification')
-            await checkHealthOfService('translate')
-            console.log("Health Check of all services is Complete.")
+            console.log("Starting Health Check of all Services ...");
+            await checkHealthOfService('auth');
+            await checkHealthOfService('chat');
+            await checkHealthOfService('notification');
+            await checkHealthOfService('translate');
+            console.log("Health Check of all services is Complete.");
         }
     </script>
 </body>
