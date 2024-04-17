@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Health Check</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js" integrity="sha512-hUhvpC5f8cgc04OZb55j0KNGh4eh7dLxd/dPSJ5VyzqDWxsayYbojWyl5Tkcgrmb/RVKCRJI1jNlRbVP4WWC4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="moment.min.js"></script>
 </head>
 <body onunload="unload()" onload="performHealthCheck()" class="flex flex-col my-4 bg-gray-50 bg-[url('./bg.jpg')] bg-cover">
 
@@ -212,6 +212,7 @@
 
         const tout = setTimeout(() => {
             performHealthCheck();
+            console.log("Health Check performed every 2 minutes");
         }, 2 * 60 * 1000);
 
         function unload() {
