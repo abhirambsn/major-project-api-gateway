@@ -67,7 +67,7 @@
                     </p>
 
                     <p id="auth-lca" class="text-gray-400 text-xs">
-                        Last checked: 30 sec ago
+                        Last checked: Never
                     </p>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                     </p>
 
                     <p id="chat-lca" class="text-gray-400 text-xs">
-                        Last checked: 30 sec ago
+                        Last checked: Never
                     </p>
                 </div>
             </div>
@@ -121,7 +121,7 @@
                     </p>
 
                     <p id="notification-lca" class="text-gray-400 text-xs">
-                        Last checked: 30 sec ago
+                        Last checked: Never
                     </p>
                 </div>
             </div>
@@ -150,7 +150,7 @@
                     </p>
 
                     <p id="translate-lca" class="text-gray-400 text-xs">
-                        Last checked: 30 sec ago
+                        Last checked: Never
                     </p>
                 </div>
             </div>
@@ -173,8 +173,6 @@
             const service_lca = document.getElementById(`${service_name}-lca`);
 
             const lca_time = localStorage.getItem(`${service_name}-lca`)
-
-            service_lca.innerText = `Last checked: ${lca_time ? moment(lca_time).fromNow() : 'Never'}`;
 
             try {
                 const response = await fetch(URL);
@@ -200,7 +198,10 @@
             }
 
             console.log(`Health Check of ${service_name} is Complete.`);
-            localStorage.setItem(`${service_name}-lca`, new Date().toLocaleString());
+            const chk_date = new Date()
+            localStorage.setItem(`${service_name}-lca`, chk_date.toLocaleString());
+            service_lca.innerText = `Last checked: ${lca_time ? moment(chk_date).fromNow() : 'Never'}`;
+
         }
 
         async function performHealthCheck() {
