@@ -172,7 +172,9 @@
             const service_resp_code = document.getElementById(`${service_name}-resp-code`);
             const service_lca = document.getElementById(`${service_name}-lca`);
 
-            service_lca.innerText = `Last checked: ${moment(localStorage.getItem(`${service_name}-lca`).fromNow()) || 'Never'}`;
+            const lca_time = localStorage.getItem(`${service_name}-lca`)
+
+            service_lca.innerText = `Last checked: ${lca_time ? moment(lca_time).fromNow() : 'Never'}`;
 
             try {
                 const response = await fetch(URL);
